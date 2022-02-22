@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*
+    <a href="Customers/Details/1">John Smith</a>
+    <a href="Customers/Details/2">Mary Williams</a>
+*@
+<h2>Customers</h2>
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>Customer</th>
+        <th>Discount Rate</th>
+    </tr>
+@foreach(Vidly.Models.Customers customer in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(customer.name + " " + customer.surname, "Edit", "Customers", new { id = customer.Id }, null)</td>
+                    <td>@customer.membershipType.name</td>
+                </tr>
+            }
+</table>
+

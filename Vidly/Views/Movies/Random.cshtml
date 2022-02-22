@@ -1,0 +1,36 @@
+﻿@model Vidly.ViewModels.randomViewModel
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script>$("h2").css("color", "red");</script>
+@*
+    This is how we add    
+    Multiline comments on
+    Razor Syntax
+    You can open coding blocks for your
+    C# by @{}. You can type any C# code there.
+    You can type HTML,JS,jQuery code inside those blocks
+    it doesn't interfere with one another.
+*@
+@{ 
+    int customerCount = 0;
+    string className = "";
+    foreach(var customer in Model.customers)
+    {
+        customerCount++;
+    }
+    if (customerCount < 5)
+    {
+        className = "Popular";
+    }
+}
+<h2 class="@className">@Model.movies.name</h2>
+
+<ul>
+@foreach(var customer in Model.customers)
+{ 
+    <li>@customer.name</li>
+}
+</ul>
+
