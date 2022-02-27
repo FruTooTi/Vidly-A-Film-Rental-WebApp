@@ -1,0 +1,39 @@
+﻿@model Vidly.ViewModels.NewMovieViewModel
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Movie</h2>
+@using (Html.BeginForm("Create", "Movies"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.name, "Name: ")
+        @Html.TextBoxFor(m => m.name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.name)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.releaseDate, "Release Date: ")
+        @Html.TextBoxFor(m => m.releaseDate, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.releaseDate)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.genreId, "Genre: ")
+        @Html.DropDownListFor(m => m.genreId, new SelectList(Model.GenreList, "Id", "Name"), "", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.genreId)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.stock, "Number in Stock: ")
+        @Html.TextBoxFor(m => m.stock, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.stock)
+    </div>
+    @Html.HiddenFor(m => m.id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Add</button>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

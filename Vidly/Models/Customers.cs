@@ -9,7 +9,7 @@ namespace Vidly.Models
     public class Customers
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The Name Field is Required")]
         [StringLength(255)]
         public string name { get; set; }
         public string surname { get; set; }
@@ -17,7 +17,7 @@ namespace Vidly.Models
 
         public MembershipType membershipType { get; set; }
         public byte membershipTypeId { get; set; }
-
+        [AgeBiggerThan18]
         public DateTime? BirthdayDate { get; set; }
     }
 }

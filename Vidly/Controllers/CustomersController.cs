@@ -49,9 +49,29 @@ namespace Vidly.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(NewCustomerViewmodel newCustomer)
         {
-            _context.Customer.Add(newCustomer.Customer);
+            if (!ModelState.IsValid)
+            {
+                NewCustomerViewmodel customer = new NewCustomerViewmodel()
+                {
+                    Customer = newCustomer.Customer,
+                    MembershipTypes = _context.membershipTypes.ToList()
+                };
+                return View("New", customer);
+            }
+            if(newCustomer.Customer.Id == 0)
+                _context.Customer.Add(newCustomer.Customer);
+            else
+            {
+                var customerEdited = _context.Customer.Single(c => c.Id == newCustomer.Customer.Id);
+                customerEdited.name = newCustomer.Customer.name;
+                customerEdited.surname = newCustomer.Customer.surname;
+                customerEdited.BirthdayDate = newCustomer.Customer.BirthdayDate;
+                customerEdited.membershipTypeId = newCustomer.Customer.membershipTypeId;
+                customerEdited.isSubscribedToNewsLetter = newCustomer.Customer.isSubscribedToNewsLetter;
+            }
             _context.SaveChanges();
             return RedirectToAction("Index", "Customers");
         }

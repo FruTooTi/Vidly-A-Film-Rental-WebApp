@@ -61,13 +61,59 @@ namespace Vidly.Controllers
         public ActionResult Detail(int? id)
         {
             var movie = _moviesList.Movies.SingleOrDefault(m => m.id == id);
-            return View(movie);
+            var GenreList = _moviesList.movieGenres.ToList();
+            NewMovieViewModel movieViewModel = new NewMovieViewModel(movie)
+            {
+                GenreList = GenreList
+            };
+            return View("New", movieViewModel);
         }
 
         public ActionResult Index()
         {
-            var Movies = _moviesList.Movies.ToList();
+            var Movies = _moviesList.Movies.Include(m => m.genre).ToList();
             return View(Movies);
+        }
+
+        public ActionResult New()
+        {
+            NewMovieViewModel MovieNew = new NewMovieViewModel()
+            {
+                GenreList = _moviesList.movieGenres.ToList()
+            };
+            return View(MovieNew);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(NewMovieViewModel addedMovie)
+        {
+            if(!ModelState.IsValid)
+            {
+                addedMovie.GenreList = _moviesList.movieGenres.ToList();
+                return View("New", addedMovie);
+            }
+            Movie targetMovie = new Movie()
+            {
+                id = addedMovie.id,
+                name = addedMovie.name,
+                releaseDate = addedMovie.releaseDate,
+                genreId = addedMovie.genreId,
+                stock = addedMovie.stock
+            };
+            if (addedMovie.id == 0)
+            {
+                _moviesList.Movies.Add(targetMovie);
+            }
+            else
+            {
+                var selectedMovie = _moviesList.Movies.Single(m => m.id == addedMovie.id);
+                selectedMovie.name = addedMovie.name;
+                selectedMovie.releaseDate = addedMovie.releaseDate;
+                selectedMovie.genreId = addedMovie.genreId;
+                selectedMovie.stock = addedMovie.stock;
+            }
+            _moviesList.SaveChanges();
+            return RedirectToAction("Index", "Movies");
         }
     }
 }

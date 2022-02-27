@@ -45,16 +45,28 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.1.0\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -165,13 +177,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\api\CustomersController.cs" />
+    <Compile Include="Controllers\api\MoviesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Dtos\CustomerDto.cs" />
+    <Compile Include="Dtos\MovieDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -239,8 +257,42 @@
     <Compile Include="Migrations\202202161558396_AddMovieContext.Designer.cs">
       <DependentUpon>202202161558396_AddMovieContext.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202221144117_addMovieGenres.cs" />
+    <Compile Include="Migrations\202202221144117_addMovieGenres.Designer.cs">
+      <DependentUpon>202202221144117_addMovieGenres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202221145531_seedData.cs" />
+    <Compile Include="Migrations\202202221145531_seedData.Designer.cs">
+      <DependentUpon>202202221145531_seedData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202221253189_foreignKeyLoad.cs" />
+    <Compile Include="Migrations\202202221253189_foreignKeyLoad.Designer.cs">
+      <DependentUpon>202202221253189_foreignKeyLoad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202221317415_datesAreNullable.cs" />
+    <Compile Include="Migrations\202202221317415_datesAreNullable.Designer.cs">
+      <DependentUpon>202202221317415_datesAreNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202241402042_dataAnnotationsMovie.cs" />
+    <Compile Include="Migrations\202202241402042_dataAnnotationsMovie.Designer.cs">
+      <DependentUpon>202202241402042_dataAnnotationsMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202241413352_numberOfStockRange.cs" />
+    <Compile Include="Migrations\202202241413352_numberOfStockRange.Designer.cs">
+      <DependentUpon>202202241413352_numberOfStockRange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202241524165_newViewModelMovie.cs" />
+    <Compile Include="Migrations\202202241524165_newViewModelMovie.Designer.cs">
+      <DependentUpon>202202241524165_newViewModelMovie.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202241531345_nullableStock.cs" />
+    <Compile Include="Migrations\202202241531345_nullableStock.Designer.cs">
+      <DependentUpon>202202241531345_nullableStock.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AgeBiggerThan18.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -248,6 +300,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\NewCustomerViewmodel.cs" />
+    <Compile Include="ViewModels\NewMovieViewModel.cs" />
     <Compile Include="ViewModels\randomViewModel.cs" />
     <Compile Include="Models\Customers.cs" />
   </ItemGroup>
@@ -316,6 +369,7 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Movies\Detail.cshtml" />
     <Content Include="Views\Customers\New.cshtml" />
+    <Content Include="Views\Movies\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -381,6 +435,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202161558396_AddMovieContext.resx">
       <DependentUpon>202202161558396_AddMovieContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202221144117_addMovieGenres.resx">
+      <DependentUpon>202202221144117_addMovieGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202221145531_seedData.resx">
+      <DependentUpon>202202221145531_seedData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202221253189_foreignKeyLoad.resx">
+      <DependentUpon>202202221253189_foreignKeyLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202221317415_datesAreNullable.resx">
+      <DependentUpon>202202221317415_datesAreNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202241402042_dataAnnotationsMovie.resx">
+      <DependentUpon>202202241402042_dataAnnotationsMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202241413352_numberOfStockRange.resx">
+      <DependentUpon>202202241413352_numberOfStockRange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202241524165_newViewModelMovie.resx">
+      <DependentUpon>202202241524165_newViewModelMovie.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202241531345_nullableStock.resx">
+      <DependentUpon>202202241531345_nullableStock.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

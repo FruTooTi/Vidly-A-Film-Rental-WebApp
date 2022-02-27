@@ -2,7 +2,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<a class="btn btn-primary" href="/Movies/New" role="button">New Movie</a>
 <h2>Movies</h2>
 <table class="table table-bordered table-hover">
     <tr>
@@ -14,7 +14,7 @@
     <tr>
 
                 <td>@Html.ActionLink(movie.name, "Details", "Movies", new { id = movie.id }, null)</td>
-                <td>@movie.genre</td>
+                <td>@movie.genre.Name</td>
 
     </tr>
 }
