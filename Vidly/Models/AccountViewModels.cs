@@ -3,13 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Vidly.Models
 {
-    public class ExternalLoginConfirmationViewModel
-    {
-        [Required]
-        [Display(Name = "E-posta")]
-        public string Email { get; set; }
-    }
-
     public class ExternalLoginListViewModel
     {
         public string ReturnUrl { get; set; }
@@ -61,26 +54,6 @@ namespace Vidly.Models
         [Display(Name = "Beni anımsa?")]
         public bool RememberMe { get; set; }
     }
-
-    public class RegisterViewModel
-    {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "E-posta")]
-        public string Email { get; set; }
-
-        [Required]
-        [StringLength(100, ErrorMessage = "{0} en az {2} karakter uzunluğunda olmalıdır.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Parola")]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Parolayı onaylayın")]
-        [Compare("Password", ErrorMessage = "Parola ve onay parolası aynı değil.")]
-        public string ConfirmPassword { get; set; }
-    }
-
     public class ResetPasswordViewModel
     {
         [Required]

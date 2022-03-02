@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using Vidly.Models;
 using Vidly.ViewModels;
+using System.Runtime.Caching;
 
 namespace Vidly.Controllers
 {
@@ -71,10 +72,16 @@ namespace Vidly.Controllers
 
         public ActionResult Index()
         {
-            var Movies = _moviesList.Movies.Include(m => m.genre).ToList();
-            return View(Movies);
+            if (MemoryCache.Default["Genres"] == null)
+            {
+                MemoryCache.Default["Genres"] = _moviesList.movieGenres.ToList();
+            }
+            var genres = (IEnumerable<Genre>)MemoryCache.Default["Genres"];
+            if (User.IsInRole(Roles.CanManageMovies))
+                return View("Index");
+            return View("GuestIndex");
         }
-
+        [Authorize(Roles = Roles.CanManageMovies)]
         public ActionResult New()
         {
             NewMovieViewModel MovieNew = new NewMovieViewModel()

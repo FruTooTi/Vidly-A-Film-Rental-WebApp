@@ -11,6 +11,7 @@ using AutoMapper;
 
 namespace Vidly.Controllers.api
 {
+    
     public class MoviesController : ApiController
     {
         public ApplicationDbContext _context;
@@ -21,7 +22,7 @@ namespace Vidly.Controllers.api
         // GET: api/Movies
         public IHttpActionResult GetMovie()
         {
-            var movies = _context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>);
+            var movies = _context.Movies.Include(m => m.genre).ToList().Select(Mapper.Map<Movie, MovieDto>);
             if (movies == null)
                 return BadRequest();
             return Ok(movies);
@@ -35,6 +36,7 @@ namespace Vidly.Controllers.api
             return Ok(Mapper.Map<MovieDto>(movies));
         }
         [HttpPost]
+        [Authorize(Roles = Roles.CanManageMovies)]
         public IHttpActionResult CreateMovie(MovieDto movie)
         {
             if (!ModelState.IsValid)
@@ -46,6 +48,7 @@ namespace Vidly.Controllers.api
             return Created(new Uri(Request.RequestUri + "/" + newMovie.id), movie);
         }
         [HttpPut]
+        [Authorize(Roles = Roles.CanManageMovies)]
         public IHttpActionResult UpdateMovie(int? id, MovieDto movie)
         {
             if (!ModelState.IsValid)
@@ -58,6 +61,7 @@ namespace Vidly.Controllers.api
             return Ok();
         }
         [HttpDelete]
+        [Authorize(Roles = Roles.CanManageMovies)]
         public IHttpActionResult DeleteMovie(int? id)
         {
             var movie = _context.Movies.SingleOrDefault(m => m.id == id);

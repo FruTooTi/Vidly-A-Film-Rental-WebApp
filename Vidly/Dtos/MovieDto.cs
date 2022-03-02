@@ -14,6 +14,7 @@ namespace Vidly.Dtos
         [StringLength(255)]
         public string name { get; set; }
         [Required(ErrorMessage = "The Genre Field is Required")]
+        public GenreDto genre { get; set; }
         public int genreId { get; set; }
         [Required(ErrorMessage = "The Release Date Field is Required")]
         public DateTime? releaseDate { get; set; }

@@ -156,3 +156,14 @@ C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\bin\
 C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\bin\System.Web.Http.WebHost.xml
 C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\bin\AutoMapper.dll
 C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\bin\AutoMapper.xml
+C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\obj\Debug\Vidly.Migrations.seedDataBase.resources
+C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\obj\Debug\Vidly.Migrations.addedDrivingLicense.resources
+C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\obj\Debug\Vidly.Migrations.addedPhoneNumber.resources
+C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\obj\Debug\Vidly.Migrations.phoneNumberFix.resources
+C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\obj\Debug\Vidly.Migrations.deletephonenumber.resources
+C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\obj\Debug\Vidly.Migrations.newNumberData.resources
+C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\bin\Glimpse.Ado.dll
+C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\bin\Glimpse.AspNet.dll
+C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\bin\Glimpse.Core.dll
+C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\bin\Glimpse.EF6.dll
+C:\Users\gs_gr\OneDrive\Masaüstü\Calisma-Masasi\ASP.NET MVC 5\Vidly\Vidly\bin\Glimpse.Mvc5.dll
